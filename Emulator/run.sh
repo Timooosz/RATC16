@@ -1,0 +1,1 @@
+gcc ./source/main.c ./source/cpu.c ./source/instructions.c -I ./include -o ratc16 && ./ratc16.exe
