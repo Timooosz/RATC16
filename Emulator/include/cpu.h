@@ -16,6 +16,8 @@ typedef struct cpu_s {
     bool halt;
 } CPU;
 
+CPU makeCPU();
+
 void run(CPU* cpu, Memory* memory);
 
 void CPU_IF(CPU* cpu, Memory* memory);

@@ -7,4 +7,6 @@
 #define RPARAM3(n) (n >> 2) & 0b111
 #define IMM(n) n & 0xFF
 
+static inline u16 read_u16(const u8 *memory, u16 address) {return ((u16)memory[address] << 8) | memory[address + 1];}
+
 #endif

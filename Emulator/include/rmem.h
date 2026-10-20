@@ -11,4 +11,6 @@ typedef struct mem_s {
     u8 mdr;
 } Memory;
 
+static inline Memory makeMemory() {return (Memory){.memory = {0}};}
+
 #endif

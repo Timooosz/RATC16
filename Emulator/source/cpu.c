@@ -2,6 +2,20 @@
 #include "instructions.h"
 #include <stdio.h>
 
+CPU makeCPU() {
+    CPU cpu;
+    cpu.zf = 0;
+    cpu.nf = 0;
+    cpu.cf = 0;
+    cpu.halt = false;
+    cpu.ir = 0;
+    cpu.pc = 0;
+
+    for (size_t i = 0; i < 8; i++) cpu.registers[i] = 0;
+
+    return cpu;
+}
+
 void run(CPU* cpu, Memory* memory) {
     bool halted = false;
 
