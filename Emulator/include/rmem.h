@@ -6,9 +6,9 @@
 #define load(m) m->mdr = m->memory[m->mar] 
 
 typedef struct mem_s {
-    i16 memory[0x10000];
+    u8 memory[0x10000];
     u16 mar;
-    u16 mdr;
+    u8 mdr;
 } Memory;
 
 #endif

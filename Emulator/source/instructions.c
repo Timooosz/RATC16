@@ -2,23 +2,33 @@
 #include "util.h"
 #include <stdio.h>
 
-void instruction_NOP(CPU *cpu) {
+void instruction_NOP(CPU *cpu, Memory *memory) {
     printf("NOP\n");
 }
 
-void instruction_HLT(CPU *cpu) {
+void instruction_LOD_I(CPU *cpu, Memory *memory) {
+    printf("LOD (I)\n");
+    u8 reg = RPARAM1(cpu->ir);
+    printf("r%d <- %#02x\n", reg, IMM(cpu->ir));
+    cpu->registers[reg] = IMM(cpu->ir);
+    cpu->zf = (cpu->registers[reg] == 0);
+    cpu->nf = 0;
+    cpu->cf = 0;
+}
+
+void instruction_HLT(CPU *cpu, Memory *memory) {
     printf("HLT\n");
     M_HLT(cpu);
 }
 
-void instruction_UNDEFINED(CPU *cpu) {
+void instruction_UNDEFINED(CPU *cpu, Memory *memory) {
     printf("CPU PANIC, undefined instruction %#02x\n", OP(cpu->ir));
     M_HLT(cpu);
 }
 
-void (*const instructions[0x20])(CPU*) = {
+void (*const instructions[0x20])(CPU*, Memory *memory) = {
     instruction_NOP, // 0x00
-    instruction_UNDEFINED, // 0x01
+    instruction_LOD_I, // 0x01
     instruction_UNDEFINED, // 0x02
     instruction_UNDEFINED, // 0x03
     instruction_UNDEFINED, // 0x04
@@ -51,7 +61,7 @@ void (*const instructions[0x20])(CPU*) = {
     instruction_HLT  // 0x1F
 };
 
-void handle_instruction(CPU *cpu) {
+void handle_instruction(CPU *cpu, Memory *memory) {
     u8 operator = OP(cpu->ir);
-    instructions[operator](cpu);
+    instructions[operator](cpu, memory);
 }

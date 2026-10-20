@@ -5,14 +5,16 @@
 
 #define M_HLT(cpu) cpu->halt = true
 
-void instruction_NOP(CPU *cpu);
+void instruction_NOP(CPU *cpu, Memory*);
 
-void instruction_HLT(CPU *cpu);
+void instruction_LOD_I(CPU *cpu, Memory*);
 
-void instruction_UNDEFINED(CPU *cpu);
+void instruction_HLT(CPU *cpu, Memory*);
 
-extern void (*const instructions[0x20])(CPU*);
+void instruction_UNDEFINED(CPU *cpu, Memory*);
 
-void handle_instruction(CPU *cpu);
+extern void (*const instructions[0x20])(CPU*, Memory*);
+
+void handle_instruction(CPU *cpu, Memory *memory);
 
 #endif
