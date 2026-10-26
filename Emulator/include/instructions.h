@@ -11,6 +11,9 @@ void instruction_LDI_I(CPU *cpu, Memory *memory);
 void instruction_LOD_I(CPU *cpu, Memory *memory);
 void instruction_LOD_R(CPU *cpu, Memory *memory);
 
+void instruction_STR_I(CPU *cpu, Memory *memory);
+void instruction_STR_R(CPU *cpu, Memory *memory);
+
 void instruction_HLT(CPU *cpu, Memory *memory);
 
 void instruction_UNDEFINED(CPU *cpu, Memory *memory);

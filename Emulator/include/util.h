@@ -8,5 +8,6 @@
 #define IMM(n) n & 0xFF
 
 static inline u16 read_u16(const u8 *memory, u16 address) {return ((u16)memory[address] << 8) | memory[address + 1];}
+static inline void write_u16(u8* memory, u16 address, u16 data) {memory[address] = data >> 8 & 0xFF; memory[address + 1] = data & 0xFF;}
 
 #endif

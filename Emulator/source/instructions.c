@@ -39,6 +39,23 @@ void instruction_LOD_R(CPU *cpu, Memory* memory) {
     cpu->cf = 0;
 }
 
+
+void instruction_STR_I(CPU *cpu, Memory *memory) {
+    printf("STR (I)\n");
+    u8 src = RPARAM1(cpu->ir);
+    u8 dst = IMM(cpu->ir);
+    printf("r%d: %#04x -> %#02x\n", src, cpu->registers[src], dst);
+    write_u16(memory->memory, dst, cpu->registers[src]);
+}
+
+void instruction_STR_R(CPU *cpu, Memory *memory) {
+    printf("STR (R)\n");
+    u8 src = RPARAM1(cpu->ir);
+    u8 dst = RPARAM2(cpu->ir);
+    printf("r%d: %#04x -> r%d: %#04x\n", src, cpu->registers[src], dst, cpu->registers[dst]);
+    write_u16(memory->memory, cpu->registers[dst], cpu->registers[src]);
+}
+
 void instruction_HLT(CPU *cpu, Memory *memory) {
     printf("HLT\n");
     M_HLT(cpu);
@@ -54,8 +71,8 @@ void (*const instructions[0x20])(CPU*, Memory *memory) = {
     instruction_LDI_I, // 0x01
     instruction_LOD_I, // 0x02
     instruction_LOD_R, // 0x03
-    instruction_UNDEFINED, // 0x04
-    instruction_UNDEFINED, // 0x05
+    instruction_STR_I, // 0x04
+    instruction_STR_R, // 0x05
     instruction_UNDEFINED, // 0x06
     instruction_UNDEFINED, // 0x07
     instruction_UNDEFINED, // 0x08

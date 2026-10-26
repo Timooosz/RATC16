@@ -8,9 +8,9 @@ int main() {
     Memory memory = makeMemory();
 
     memory.memory[0] = 0x08; memory.memory[1] = 0xAB; // LDI 0 #0xAB
-    memory.memory[2] = 0x1C; memory.memory[3] = 0x00; // LOD 4 0
-    memory.memory[4] = 0xF8; memory.memory[5] = 0x00; // 
-    memory.memory[0xAB] = 0x12; memory.memory[0xAC] = 0x34;
+    memory.memory[2] = 0x28; memory.memory[3] = 0x00; // STR 0 0
+    memory.memory[4] = 0x19; memory.memory[5] = 0x00; // LOD 1 0
+    memory.memory[6] = 0xF8; memory.memory[7] = 0x00; // HLT
 
     run(&cpu, &memory);
 
