@@ -1,18 +1,34 @@
 #include "cpu.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int main() {
+#define MEM(x) memory.memory[x]
+
+int main(int argc, char **argv) {
+
+    if (argc != 2) return 1;
+
     CPU cpu = makeCPU();
 
     Memory memory = makeMemory();
 
-    memory.memory[0] = 0x08; memory.memory[1] = 0xAB; // LDI 0 #0xAB
-    memory.memory[2] = 0x28; memory.memory[3] = 0x00; // STR 0 0
-    memory.memory[4] = 0x19; memory.memory[5] = 0x00; // LOD 1 0
-    memory.memory[6] = 0xF8; memory.memory[7] = 0x00; // HLT
+    FILE *fptr;
+    fptr = fopen(argv[1], "rb");
+
+    if (fptr == NULL) return 2;
+
+    size_t bytes_read = fread(memory.memory, 1, sizeof memory.memory, fptr);
+    if (ferror(fptr)) {
+        fclose(fptr);
+        return 3;
+    }
 
     run(&cpu, &memory);
 
     printf("Done\n");
+
+    fclose(fptr);
+
+    return 0;
 }
