@@ -18,7 +18,7 @@ void instruction_HLT(CPU *cpu, Memory *memory);
 
 void instruction_UNDEFINED(CPU *cpu, Memory *memory);
 
-extern void (*const instructions[0x20])(CPU*, Memory *memory);
+extern void (*const instructions[0b100000])(CPU*, Memory *memory);
 
 void handle_instruction(CPU *cpu, Memory *memory);
 
